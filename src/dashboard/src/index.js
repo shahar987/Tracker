@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
+import "./assets/css/reset.css";
+import "./assets/fonts/Roboto/stylesheet.css";
+import "./assets/css/global.scss";
 
 ReactDOM.render(
   <React.StrictMode>
