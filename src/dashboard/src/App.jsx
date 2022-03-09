@@ -12,7 +12,7 @@ const App = () => {
 
   return (
     <main>
-      {location.pathname != "/login" && <Toolbar/>}
+      {location.pathname !== "/login" && <Toolbar/>}
 
       <Routes>
           <Route path='/' element={ <HomePage /> } />
