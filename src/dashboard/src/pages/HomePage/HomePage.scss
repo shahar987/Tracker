@@ -3,10 +3,16 @@
 .homepage{
     padding-top: 50px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     
     h1{
         font-size: 55px;
+        text-align: center;
         color: $color-text-primary;
+    }
+    .piechart{
+        padding-top: 40px;
+        
     }
 }
