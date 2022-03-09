@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import React from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import HomePage from './pages/HomePage/HomePage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import ClientsPage from './pages/ClientsPage/ClientsPage';
@@ -8,12 +8,12 @@ import Toolbar from './components/Toolbar/Toolbar';
 
 const App = () => {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const location = useLocation();
 
   return (
     <main>
-      {isLoggedIn && <Toolbar/>}
-      
+      {location.pathname != "/login" && <Toolbar/>}
+
       <Routes>
           <Route path='/' element={ <HomePage /> } />
           <Route path='/login' element={ <LoginPage/> } />

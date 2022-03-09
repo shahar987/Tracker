@@ -1,12 +1,16 @@
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHomeLg, faSignOut } from '@fortawesome/free-solid-svg-icons';
-import React from 'react'
 import "./Toolbar.scss";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 const Toolbar = () => {
     
+    const navigate = useNavigate();
+
     const signOut = () => {
         alert("Signed out!")
+        navigate("/login");
     }
 
     return (
