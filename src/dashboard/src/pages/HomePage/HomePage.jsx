@@ -1,8 +1,12 @@
-import React from 'react'
-
+import React from 'react';
+import "./HomePage.scss";
 const HomePage = () => {
   return (
-    <div>HomePage</div>
+    <main className='homepage'>
+      <h1>
+        Clients Status
+      </h1>
+    </main>
   )
 }
 

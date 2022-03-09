@@ -1,0 +1,12 @@
+@import "../../assets/css/palette.scss";
+
+.homepage{
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    
+    h1{
+        font-size: 55px;
+        color: $color-text-primary;
+    }
+}
