@@ -1,0 +1,40 @@
+@import "../../assets/css/palette.scss";
+
+nav.toolbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    padding: 10px;
+    background-color: $color-primary;
+
+    text{
+        color: $color-text-light;
+    }
+    .icon{
+        color: $color-icon;
+    }
+
+    .nav-home,.nav-sign-out{
+        cursor: pointer;
+    }
+
+    .nav-home{
+        text-decoration: none;
+        padding-left: 20px;
+        text{
+            font-weight: bold;
+            font-size: 30px;
+            padding-left: 15px;
+        }
+    }
+
+    .nav-sign-out{
+        padding-right: 20px;
+        text{
+            font-size: 16px;
+            padding-right: 10px;
+        }
+    }
+
+}
