@@ -1,8 +1,12 @@
-import React from 'react'
+import React from 'react';
+import EnhancedTable from "../../components/ClientList/ClientTable/ClientTable"
+
 
 const ClientPage = () => {
   return (
-    <div>ClientPage</div>
+    <div>
+    <EnhancedTable/>
+    </div>
   )
 }
 
