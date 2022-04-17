@@ -1,8 +1,12 @@
-import React from 'react'
+import React from 'react';
+import ClientDataTable from "../../components/ClientsStatusDiagram/ClientsStatusDiagram"
+
 
 const ClientPage = () => {
   return (
-    <div>ClientPage</div>
+    <div>
+    <ClientDataTable/>
+    </div>
   )
 }
 
