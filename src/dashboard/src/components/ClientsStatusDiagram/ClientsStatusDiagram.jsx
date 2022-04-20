@@ -12,10 +12,10 @@ import "./ClientsStatusDiagram.scss";
 import viIcon from "../../assets/icons/viIcon.png"
 import xIcon from "../../assets/icons/xIcon.png";
 
+//TODO: add get request to be api for ip:str and last update:date and pass name:str in header
+//TODO: add get request to be api for check name:str ,result:bool and notes:str(optional) 
 
 let originalRows = [];
-let clientName = null;
-let ipAddress = null;
 
 /*create data to table*/
 function createData(name, followStandard, notes) {
@@ -48,17 +48,7 @@ checkData('antivirus is installed', false, "-");
 checkData('antivirus version is up to date', false, "-");
 checkData('password change policy is on', true, "-");
 
-
-
-/* Save the client data*/
-function updateClientInfo(dataClientName, dataIpAddress){
-    clientName = dataClientName
-    ipAddress = dataIpAddress
-}
-
-updateClientInfo("ShaharPc", "10.0.1.56")
-
-export default function ClientDataTable() {
+export default function ClientDataTable(props) {
     const [rows, setRows] = useState(originalRows);
     const [searched, setSearched] = useState("");
 
@@ -78,8 +68,8 @@ export default function ClientDataTable() {
 
     return (
     <div>
-    <h1 id="clientName">{clientName}</h1>
-    <text id="ip">Ip Address: {ipAddress}</text>
+    <h1 id="clientName">{props.pcName}</h1>
+    <text id="ip">Ip Address: 10.0.0.10</text>
     <br></br>
     <br></br>
     <date id="date">Last Update: {getDate()}</date>
