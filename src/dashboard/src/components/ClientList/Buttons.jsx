@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Data from "./Data";
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
@@ -7,57 +6,25 @@ import GppGoodIcon from "@mui/icons-material/GppGood";
 import ErrorIcon from "@mui/icons-material/Error";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 
-export const manualFilterData = (key, filterItem, setItem) => {
+export const manualFilterData = (key, filterItem) => {
   var carcat = "ALL"; // default --> key === 2
 
   if (key === 2) {
-    // ALL
-    setItem(Data);
-    return;
+   filterItem(2)
   }
 
   if (key === 0) {
-    carcat = "OK";
+    filterItem(0)
+
   } else if (key === 1) {
-    carcat = "ERROR";
+    filterItem(1)
   }
 
-  return (
-    <div>
-      {Data.filter((item) => item.category === carcat).map((filteredItem) => (
-        <li key={filteredItem.id}>{filterItem(filteredItem.category)}</li>
-      ))}
-    </div>
-  );
+ 
 };
 
-const Buttons = ({ filterItem, setItem }) => {
+const Buttons = (props) => {
   const [value, setValue] = useState(2);
-
-  manualFilterData(filterItem, setItem);
-  const filterData = (key) => {
-    var carcat = "ALL"; // default --> key === 2
-
-    if (key === 2) {
-      // ALL
-      setItem(Data);
-      return;
-    }
-
-    if (key === 0) {
-      carcat = "OK";
-    } else if (key === 1) {
-      carcat = "ERROR";
-    }
-
-    return (
-      <div>
-        {Data.filter((item) => item.category === carcat).map((filteredItem) => (
-          <li key={filteredItem.id}>{filterItem(filteredItem.category)}</li>
-        ))}
-      </div>
-    );
-  };
 
   return (
     <Box sx={{ align: "center" }}>
@@ -72,7 +39,7 @@ const Buttons = ({ filterItem, setItem }) => {
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
-          filterData(newValue);
+          manualFilterData(newValue, props.filterItem);
         }}
       >
         <BottomNavigationAction

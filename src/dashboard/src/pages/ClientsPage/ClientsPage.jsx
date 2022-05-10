@@ -1,19 +1,40 @@
-import React, { useState } from "react";
-import Data from "../../components/ClientList/Data";
-import Card from "../../components/ClientList/Card";
+import React, { useState, useEffect } from "react";
+import ActionAreaCard from "../../components/ClientList/Card";
 import Buttons from "../../components/ClientList/Buttons";
 import Typography from "@mui/material/Typography";
+import axios from 'axios';
+
+
 
 const ClientsPage = () => {
-  const [item, setItem] = useState(Data);
+  const [item, setItem] = useState([]);
+  const [filtered, setFiltered] = useState(item);
+  
+  useEffect(() => axios.get(`http://127.0.0.1:8000/card/mix`).then((response) => {
+    //console.log(response)
+    console.log(typeof(response.data))
+    setItem(response.data)
+  }), [])
+  console.log(typeof(item))
 
   const filterItem = (curcat) => {
-    const newItem = Data.filter((newVal) => {
-      return newVal.category === curcat;
-    });
-    setItem(newItem);
+    if (curcat === 0 ) {
+      const newItem = item.filter((newVal) => {
+        return newVal.error_number === 0;
+      });
+      console.log(newItem)
+      setFiltered(newItem);
+    }
+    else if (curcat === 1) {
+      const newItem = item.filter((newVal) => {
+        return newVal.error_number !== 0;
+      });
+      setFiltered(newItem);
+    }
+    else {
+      setFiltered(item);
+    }
   };
-
   return (
     <>
       <div>
@@ -24,8 +45,8 @@ const ClientsPage = () => {
         >
           TRACKR TEST RESULTS
         </Typography>
-        <Buttons filterItem={filterItem} setItem={setItem} />
-        <Card item={item} />
+        <Buttons filterItem={filterItem}/>
+        <ActionAreaCard filtered={filtered} />
       </div>
     </>
   );
