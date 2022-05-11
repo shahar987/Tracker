@@ -22,7 +22,9 @@ const ActionAreaCard = ({ filtered }) => {
               <Grid key={card.name + card.ip} item xs={3}>
                 <Link
                   style={{ textDecoration: "none", color: "inherit" }}
-                  to="/"
+                  to="/client"
+                  state={{pcName:card.name,
+                          pcIp:card.ip}}
                 >
                   <Card style={{ backgroundColor: style }}>
                     <CardContent>

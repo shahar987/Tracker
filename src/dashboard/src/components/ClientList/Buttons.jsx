@@ -7,10 +7,8 @@ import ErrorIcon from "@mui/icons-material/Error";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 
 export const manualFilterData = (key, filterItem) => {
-  var carcat = "ALL"; // default --> key === 2
-
   if (key === 2) {
-   filterItem(2)
+    filterItem(2)
   }
 
   if (key === 0) {
@@ -20,7 +18,6 @@ export const manualFilterData = (key, filterItem) => {
     filterItem(1)
   }
 
- 
 };
 
 const Buttons = (props) => {

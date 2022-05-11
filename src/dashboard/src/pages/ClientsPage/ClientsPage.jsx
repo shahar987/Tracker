@@ -8,21 +8,19 @@ import axios from 'axios';
 
 const ClientsPage = () => {
   const [item, setItem] = useState([]);
-  const [filtered, setFiltered] = useState(item);
+  const [filtered, setFiltered] = useState([]);
   
-  useEffect(() => axios.get(`http://127.0.0.1:8000/card/mix`).then((response) => {
-    //console.log(response)
-    console.log(typeof(response.data))
-    setItem(response.data)
-  }), [])
-  console.log(typeof(item))
+  useEffect(() => axios.get(`http://127.0.0.1:8000/card/microsoft`).then((response) => {
+    setItem(response.data);
+    setFiltered(response.data);
+    }) , [])
 
+  
   const filterItem = (curcat) => {
     if (curcat === 0 ) {
       const newItem = item.filter((newVal) => {
         return newVal.error_number === 0;
       });
-      console.log(newItem)
       setFiltered(newItem);
     }
     else if (curcat === 1) {
@@ -46,7 +44,7 @@ const ClientsPage = () => {
           TRACKR TEST RESULTS
         </Typography>
         <Buttons filterItem={filterItem}/>
-        <ActionAreaCard filtered={filtered} />
+        <ActionAreaCard filtered={filtered}/>
       </div>
     </>
   );

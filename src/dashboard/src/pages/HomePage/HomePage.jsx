@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { Cell, Pie, PieChart, Sector } from 'recharts';
+import { Link } from 'react-router-dom';
 import "./HomePage.scss";
 import axios from 'axios';
 
 const HomePage = () => { 
   const [goodValue, setGoodValue] = React.useState(null);   
   const [badValue, setBadValue] = React.useState(null);
+
   axios.get(`http://127.0.0.1:8000/endpoint/microsoft`).then((response) => {
     //console.log(response)
     setGoodValue(response.data[0].ok)
     setBadValue(response.data[0].error)} )
-           
 
 
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -55,8 +56,10 @@ const HomePage = () => {
 
       <PieChart width={400} height={400} className="piechart">
         <text x={200} y={100} textAnchor="middle" dominantBaseline="middle">
+        <Link to={"/clients"}>
           <tspan dy="1em" x="50%" fontSize="80px"> {totalClients} </tspan>
           <tspan dy="1.25em" x="50%" fontSize="40px">Total clients</tspan>
+        </Link>
         </text>
         <Pie
           data={data}

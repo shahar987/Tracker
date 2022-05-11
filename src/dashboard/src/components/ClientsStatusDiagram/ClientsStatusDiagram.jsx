@@ -14,8 +14,7 @@ import xIcon from "../../assets/icons/xIcon.png";
 
 
 let originalRows = [];
-let clientName = null;
-let ipAddress = null;
+
 
 /*create data to table*/
 function createData(name, followStandard, notes) {
@@ -49,16 +48,7 @@ checkData('antivirus version is up to date', false, "-");
 checkData('password change policy is on', true, "-");
 
 
-
-/* Save the client data*/
-function updateClientInfo(dataClientName, dataIpAddress){
-    clientName = dataClientName
-    ipAddress = dataIpAddress
-}
-
-updateClientInfo("ShaharPc", "10.0.1.56")
-
-export default function ClientDataTable() {
+export default function ClientDataTable(props) {
     const [rows, setRows] = useState(originalRows);
     const [searched, setSearched] = useState("");
 
@@ -78,8 +68,8 @@ export default function ClientDataTable() {
 
     return (
     <div>
-    <h1 id="clientName">{clientName}</h1>
-    <text id="ip">Ip Address: {ipAddress}</text>
+    <h1 id="clientName">{props.pcName}</h1>
+    <text id="ip">Ip Address: {props.pcIp}</text>
     <br></br>
     <br></br>
     <date id="date">Last Update: {getDate()}</date>
