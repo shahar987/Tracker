@@ -9,8 +9,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import SearchBar from "material-ui-search-bar";
 import "./ClientsStatusDiagram.scss";
-import viIcon from "../../assets/icons/viIcon.png"
+import viIcon from "../../assets/icons/viIcon.png";
 import xIcon from "../../assets/icons/xIcon.png";
+import axios from 'axios';
 
 //TODO: add get request to be api for ip:str and last update:date and pass name:str in header
 //TODO: add get request to be api for check name:str ,result:bool and notes:str(optional) 
@@ -22,12 +23,7 @@ function createData(name, followStandard, notes) {
     return { name: name, followStandard: followStandard, notes: notes};
 }
 
-/*Get the current date*/
-function getDate(){
-    const formatYmd = date => date.toISOString().slice(0, 10);
-    const newDate = formatYmd(new Date());
-    return newDate;
-}
+
 
 
 /*Check if the test follow the standard*/
@@ -48,15 +44,43 @@ checkData('antivirus is installed', false, "-");
 checkData('antivirus version is up to date', false, "-");
 checkData('password change policy is on', true, "-");
 
+function uniteData(checks, checksStatus){
+    
+}
+
 export default function ClientDataTable(props) {
+    const [checks, setChecks] = React.useState(null);
+    const [checksStatus, setChecksStatus] = React.useState(null)
     const [rows, setRows] = useState(originalRows);
     const [searched, setSearched] = useState("");
+    const current = new Date();
+    const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
 
+    React.useEffect(() => {
+        axios.get(`http://127.0.0.1:8000/checks`).then((response) => {
+            setChecks(response.data);
+            
+        });
+    }, []);
+
+    React.useEffect(() => {
+        axios.get(`http://127.0.0.1:8000/client/status?client_name=shahar-pc`).then((response) => {
+            setChecksStatus(response.data);
+            
+        });
+    }, []);
+    
+    console.log(checks)
+    console.log(checksStatus)
+
+    uniteData(checks,checksStatus)
 
     const requestSearch = (searchedVal) => {
         const filteredRows = originalRows.filter((row) => {
             return row.name.toLowerCase().includes(searchedVal.toLowerCase());
         });
+
+
     setRows(filteredRows);
     };
 
@@ -69,10 +93,10 @@ export default function ClientDataTable(props) {
     return (
     <div>
     <h1 id="clientName">{props.pcName}</h1>
-    <text id="ip">Ip Address: 10.0.0.10</text>
+    <text id="ip">Ip Address: {props.pcIp}</text>
     <br></br>
     <br></br>
-    <date id="date">Last Update: {getDate()}</date>
+    <date id="date">Last Update: {date}</date>
     <br></br>
     <br></br>
     <SearchBar

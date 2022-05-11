@@ -7,7 +7,8 @@ const ClientsPage = () => {
       <br/>
       <Link
       to={ "/client"}
-      state={{name:"shahar-pc"}} // your data array of objects
+      state={{name:"shahar-pc",
+              ip:"10.0.0.1"}} // your data array of objects
       >
         <button>
         name: shahar-pc
@@ -16,11 +17,12 @@ const ClientsPage = () => {
       <br></br>
       <Link
       to={ "/client"}
-      state={{name:"shir-pc"}} // your data array of objects
+      state={{name:"shir-pc",
+              ip:"10.0.0.2"}} // your data array of objects
       >
         <button>
         name: shir-pc
-        ip:10.0.0.1</button>
+        ip:10.0.0.2</button>
       </Link>
     </div>
   )
