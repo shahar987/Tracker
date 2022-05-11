@@ -1,13 +1,23 @@
 import React, { useState } from 'react';
 import { Cell, Pie, PieChart, Sector } from 'recharts';
 import "./HomePage.scss";
-const HomePage = () => {
+import axios from 'axios';
+
+const HomePage = () => { 
+  const [goodValue, setGoodValue] = React.useState(null);   
+  const [badValue, setBadValue] = React.useState(null);
+  axios.get(`http://127.0.0.1:8000/endpoint/microsoft`).then((response) => {
+    //console.log(response)
+    setGoodValue(response.data[0].ok)
+    setBadValue(response.data[0].error)} )
+           
+
 
   const [activeIndex, setActiveIndex] = useState(-1);
 
   const data = [
-    { name: 'good', value: 90, color: '#00C49F' },
-    { name: 'bad', value: 40, color: '#ff726f' },
+    { name: 'good', value: goodValue, color: '#00C49F' },
+    { name: 'bad', value: badValue, color: '#ff726f' },
   ]
   const totalClients = data.map(a => a.value).reduce((a,b) => a+b);
 
@@ -34,7 +44,7 @@ const HomePage = () => {
 
   const onPieEnter = (_, index) => {
     setActiveIndex(index);
-    console.log(index);
+    //console.log(index);
   }
 
   return (

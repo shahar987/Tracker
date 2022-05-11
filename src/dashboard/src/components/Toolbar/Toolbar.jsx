@@ -1,35 +1,60 @@
-import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHomeLg, faSignOut } from '@fortawesome/free-solid-svg-icons';
-import "./Toolbar.scss";
-import { Link, useNavigate } from 'react-router-dom';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Button from "@mui/material/Button";
+import LogoutIcon from "@mui/icons-material/Logout";
+import HomeIcon from "@mui/icons-material/Home";
 
-const Toolbar = () => {
-    
-    const navigate = useNavigate();
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#1976d2",
+    },
+  },
+});
 
-    const signOut = () => {
-        alert("Signed out!")
-        navigate("/login");
-    }
+const ToolbarMain = () => {
+  const navigate = useNavigate();
 
-    return (
-        <nav className='toolbar'>
-            
-            {/* Home button */}
-            <Link className='nav-home' to={"/"}>
-                <FontAwesomeIcon icon={faHomeLg} className="icon" size='2x' />
-                <text>Trackr</text>
+  const signOut = () => {
+    /**
+     * @TODO delete localStorage
+     **/
+    navigate("/login");
+  };
+
+  return (
+    <ThemeProvider theme={darkTheme}>
+      <AppBar position="static" color="primary" enableColorOnDark>
+        <Toolbar>
+          <HomeIcon fontSize="large" />
+          <Typography
+            variant="h4"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, fontWeight: 600 }}
+          >
+            <Link style={{ textDecoration: "none", color: "inherit" }} to="/">
+              Trackr
             </Link>
-
-            { /* Sign out button*/}
-            <span className='nav-sign-out' onClick={signOut}>
-                <text>Sign out</text>
-                <FontAwesomeIcon icon={faSignOut} className="icon" size='lg' />
+          </Typography>
+          <Button
+            style={{ textTransform: "none" }}
+            color="inherit"
+            endIcon={<LogoutIcon />}
+          >
+            <span style={{ fontSize: 18 }} onClick={signOut}>
+              Sign out
             </span>
+          </Button>
+        </Toolbar>
+      </AppBar>
+    </ThemeProvider>
+  );
+};
 
-        </nav>
-    )
-}
-
-export default Toolbar
+export default ToolbarMain;
