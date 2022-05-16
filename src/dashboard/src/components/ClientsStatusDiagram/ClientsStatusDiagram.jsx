@@ -13,12 +13,13 @@ import viIcon from "../../assets/icons/viIcon.png"
 import xIcon from "../../assets/icons/xIcon.png";
 
 
+
 let originalRows = [];
 
 
 /*create data to table*/
-function createData(name, followStandard, notes) {
-    return { name: name, followStandard: followStandard, notes: notes};
+function createData(name, followStandard) {
+    return { name: name, followStandard: followStandard};
 }
 
 /*Get the current date*/
@@ -30,22 +31,17 @@ function getDate(){
 
 
 /*Check if the test follow the standard*/
-function checkData(name, followStandard, notes){
+function checkData(name, followStandard){
     if (followStandard === true){
-        originalRows.push(createData(name, <img src={viIcon} alt="viIcon" width={50} />, notes))
+        originalRows.push(createData(name, <img src={viIcon} alt="viIcon" width={50} />))
     }
     else{
-    originalRows.push(createData(name, <img src={xIcon} alt="viIcon" width={50} />, notes))
+    originalRows.push(createData(name, <img src={xIcon} alt="viIcon" width={50} />))
     }
-
 }
 
-checkData('system version is up to date', true, "-");
-checkData('firewall is on', false, "-");
-checkData('chrome version is up to date', true, "-");
-checkData('antivirus is installed', false, "-");
-checkData('antivirus version is up to date', false, "-");
-checkData('password change policy is on', true, "-");
+checkData('system version is up to date', true);
+checkData('firewall is on', false);
 
 
 export default function ClientDataTable(props) {
@@ -92,7 +88,6 @@ export default function ClientDataTable(props) {
         <TableRow>
             <TableCell>Standard name</TableCell>
             <TableCell align="left">Follow standard</TableCell>
-            <TableCell align="left">notes</TableCell>
         </TableRow>
         </TableHead>
         <TableBody>
@@ -105,8 +100,6 @@ export default function ClientDataTable(props) {
                 {row.name}
                 </TableCell>
                 <TableCell align="left">{row.followStandard}</TableCell>
-                <TableCell align="left">{row.notes}</TableCell>
-
             </TableRow>
             ))}
         </TableBody>
