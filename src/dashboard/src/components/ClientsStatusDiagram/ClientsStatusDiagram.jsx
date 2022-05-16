@@ -13,13 +13,14 @@ import viIcon from "../../assets/icons/viIcon.png"
 import xIcon from "../../assets/icons/xIcon.png";
 
 
+
 let originalRows = [];
 let clientName = null;
 let ipAddress = null;
 
 /*create data to table*/
-function createData(name, followStandard, notes) {
-    return { name: name, followStandard: followStandard, notes: notes};
+function createData(name, followStandard) {
+    return { name: name, followStandard: followStandard};
 }
 
 /*Get the current date*/
@@ -31,34 +32,20 @@ function getDate(){
 
 
 /*Check if the test follow the standard*/
-function checkData(name, followStandard, notes){
+function checkData(name, followStandard){
     if (followStandard === true){
-        originalRows.push(createData(name, <img src={viIcon} alt="viIcon" width={50} />, notes))
+        originalRows.push(createData(name, <img src={viIcon} alt="viIcon" width={50} />))
     }
     else{
-    originalRows.push(createData(name, <img src={xIcon} alt="viIcon" width={50} />, notes))
+    originalRows.push(createData(name, <img src={xIcon} alt="viIcon" width={50} />))
     }
-
 }
 
-checkData('system version is up to date', true, "-");
-checkData('firewall is on', false, "-");
-checkData('chrome version is up to date', true, "-");
-checkData('antivirus is installed', false, "-");
-checkData('antivirus version is up to date', false, "-");
-checkData('password change policy is on', true, "-");
+checkData('system version is up to date', true);
+checkData('firewall is on', false);
 
 
-
-/* Save the client data*/
-function updateClientInfo(dataClientName, dataIpAddress){
-    clientName = dataClientName
-    ipAddress = dataIpAddress
-}
-
-updateClientInfo("ShaharPc", "10.0.1.56")
-
-export default function ClientDataTable() {
+export default function ClientDataTable(props) {
     const [rows, setRows] = useState(originalRows);
     const [searched, setSearched] = useState("");
 
@@ -78,8 +65,8 @@ export default function ClientDataTable() {
 
     return (
     <div>
-    <h1 id="clientName">{clientName}</h1>
-    <text id="ip">Ip Address: {ipAddress}</text>
+    <h1 id="clientName">{props.pcName}</h1>
+    <text id="ip">Ip Address: {props.pcIp}</text>
     <br></br>
     <br></br>
     <date id="date">Last Update: {getDate()}</date>
@@ -102,7 +89,6 @@ export default function ClientDataTable() {
         <TableRow>
             <TableCell>Standard name</TableCell>
             <TableCell align="left">Follow standard</TableCell>
-            <TableCell align="left">notes</TableCell>
         </TableRow>
         </TableHead>
         <TableBody>
@@ -115,8 +101,6 @@ export default function ClientDataTable() {
                 {row.name}
                 </TableCell>
                 <TableCell align="left">{row.followStandard}</TableCell>
-                <TableCell align="left">{row.notes}</TableCell>
-
             </TableRow>
             ))}
         </TableBody>
