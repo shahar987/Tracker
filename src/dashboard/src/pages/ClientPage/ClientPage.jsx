@@ -1,16 +1,15 @@
 import React from 'react';
-import ClientDataTable from "../../components/ClientsStatusDiagram/ClientsStatusDiagram"
+import ClientsStatusDiagram from "../../components/ClientsStatusDiagram/ClientsStatusDiagram"
 import { useLocation } from "react-router-dom";
 
 const ClientPage = () => {
   const location = useLocation();
   const pcName = location.state.name
   const pcIp = location.state.ip
-  console.log(pcName)
 
   return (
     <div>
-    <ClientDataTable pcName= {pcName} pcIp={pcIp}/>
+      <ClientsStatusDiagram pcName= {pcName} pcIp={pcIp}/>
     </div>
   )
 }

@@ -14,26 +14,26 @@ import xIcon from "../../assets/icons/xIcon.png";
 import axios from 'axios';
 
 
-
-
-
 /*Get the current date*/
 function getDate(){
-    const formatYmd = date => date.toISOString().slice(0, 10);
-    const newDate = formatYmd(new Date());
-    return newDate;
+    let separator = "/"
+    let newDate = new Date()
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+    return `${date}${separator}${month<10?`0${month}`:`${month}`}${separator}${year}`;
 }
 
 
-export default function ClientDataTable(props) {
+const ClientsStatusDiagram = (props)  => {
     const [searched, setSearched] = useState("");
     const [rows, setRows] = useState([]);
     const [finalRows , setFinalRows] = useState([]);
     
-    useEffect(() => axios.get(`http://127.0.0.1:8000/checkNameAndResult/mix/?client_name=shahar-pc`).then((response) => {
+    useEffect(() => axios.get(`http://127.0.0.1:8000/checkNameAndResult/mix/?client_name=${props.pcName}`).then((response) => {
         setRows(response.data)
         setFinalRows(response.data)
-    }) , [])
+    }) , [props.pcName])
 
     const requestSearch = (searchedVal) => {
         const filteredRows = rows.filter((row) => {
@@ -49,6 +49,7 @@ export default function ClientDataTable(props) {
 
 
     return (
+    <>
     <div>
     <h1 id="clientName">{props.pcName}</h1>
     <h1 id="ip">Ip Address: {props.pcIp}</h1>
@@ -97,5 +98,8 @@ export default function ClientDataTable(props) {
         </Table>
     </TableContainer>
     </div>
+    </>
     );
 }
+
+export default ClientsStatusDiagram;
