@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,16 +11,11 @@ import SearchBar from "material-ui-search-bar";
 import "./ClientsStatusDiagram.scss";
 import viIcon from "../../assets/icons/viIcon.png"
 import xIcon from "../../assets/icons/xIcon.png";
+import axios from 'axios';
 
 
 
-let originalRows = [];
 
-
-/*create data to table*/
-function createData(name, followStandard) {
-    return { name: name, followStandard: followStandard};
-}
 
 /*Get the current date*/
 function getDate(){
@@ -30,30 +25,21 @@ function getDate(){
 }
 
 
-/*Check if the test follow the standard*/
-function checkData(name, followStandard){
-    if (followStandard === true){
-        originalRows.push(createData(name, <img src={viIcon} alt="viIcon" width={50} />))
-    }
-    else{
-    originalRows.push(createData(name, <img src={xIcon} alt="viIcon" width={50} />))
-    }
-}
-
-checkData('system version is up to date', true);
-checkData('firewall is on', false);
-
-
 export default function ClientDataTable(props) {
-    const [rows, setRows] = useState(originalRows);
     const [searched, setSearched] = useState("");
-
+    const [rows, setRows] = useState([]);
+    const [finalRows , setFinalRows] = useState([]);
+    
+    useEffect(() => axios.get(`http://127.0.0.1:8000/checkNameAndResult/mix/?client_name=shahar-pc`).then((response) => {
+        setRows(response.data)
+        setFinalRows(response.data)
+    }) , [])
 
     const requestSearch = (searchedVal) => {
-        const filteredRows = originalRows.filter((row) => {
+        const filteredRows = rows.filter((row) => {
             return row.name.toLowerCase().includes(searchedVal.toLowerCase());
         });
-    setRows(filteredRows);
+    setFinalRows(filteredRows);
     };
 
     const cancelSearch = () => {
@@ -65,10 +51,10 @@ export default function ClientDataTable(props) {
     return (
     <div>
     <h1 id="clientName">{props.pcName}</h1>
-    <text id="ip">Ip Address: {props.pcIp}</text>
+    <h1 id="ip">Ip Address: {props.pcIp}</h1>
     <br></br>
     <br></br>
-    <date id="date">Last Update: {getDate()}</date>
+    <h1 id="date">Last Update: {getDate()}</h1>
     <br></br>
     <br></br>
     <SearchBar
@@ -91,15 +77,20 @@ export default function ClientDataTable(props) {
         </TableRow>
         </TableHead>
         <TableBody>
-            {rows.map((row) => (
+
+        {finalRows.map((row) => (
+            
             <TableRow
-                key={row.name}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
+            >                
                 <TableCell component="th" scope="row" key= {row.name}>
                 {row.name}
                 </TableCell>
-                <TableCell align="left">{row.followStandard}</TableCell>
+                <TableCell align="left" >
+                    {row.standard ?(
+                    <img src={viIcon} alt="viIcon" width={47} />
+                    ) : (<img src={xIcon} alt="viIcon" width={50} /> )
+                    }</TableCell>
             </TableRow>
             ))}
         </TableBody>
