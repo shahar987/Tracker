@@ -1,4 +1,3 @@
-import React from 'react';
 import ClientsStatusDiagram from "../../components/ClientsStatusDiagram/ClientsStatusDiagram"
 import { useLocation } from "react-router-dom";
 
@@ -9,9 +8,9 @@ const ClientPage = () => {
 
   return (
     <div>
-      <ClientsStatusDiagram pcName= {pcName} pcIp={pcIp}/>
+      <ClientsStatusDiagram pcName={pcName} pcIp={pcIp}/>
     </div>
-  )
-}
+  );
+};
 
 export default ClientPage

@@ -21,7 +21,12 @@ const ActionAreaCard = ({ filtered }) => {
             return (
               <Grid key={card.name + card.ip} item xs={3}>
                   <Card style={{ backgroundColor: style }}>
-                  
+                  <Link
+                      style={{ textDecoration: "none", color: "inherit" }}
+                      to={"/client"}
+                      state={{name: card.client_name,
+                              ip: card.ip}}
+                      >
                     <CardContent>
                       {/* title */}
                       <Typography
@@ -30,20 +35,16 @@ const ActionAreaCard = ({ filtered }) => {
                         variant="subtitle1"
                         component="div"
                       >
-                      <Link
-                      style={{ textDecoration: "none", color: "inherit" }}
-                      to={"/client"}
-                      state={{name: card.client_name,
-                              ip: card.ip}}
-                      >
+                      
                         {card.client_name}
-                        </Link>
+                        
                       </Typography>
                       {/* Ip address */}
                       <Typography>IP: {card.ip}</Typography>
                       {/* Number of problems */}
                       <Typography>Number of errors: {card.error_number}</Typography>
                     </CardContent>
+                    </Link>
                   </Card>
                 
               </Grid>
