@@ -8,7 +8,7 @@ const HomePage = () => {
   const [goodValue, setGoodValue] = React.useState(null);   
   const [badValue, setBadValue] = React.useState(null);
 
-  axios.get(`http://127.0.0.1:8000/endpoint/microsoft`).then((response) => {
+  axios.get(`http://127.0.0.1:8000/endpoint/mix`).then((response) => {
     //console.log(response)
     setGoodValue(response.data[0].ok)
     setBadValue(response.data[0].error)} )
