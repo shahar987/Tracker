@@ -10,7 +10,7 @@ const ClientsPage = () => {
   const [item, setItem] = useState([]);
   const [filtered, setFiltered] = useState([]);
   
-  useEffect(() => axios.get(`http://127.0.0.1:8000/card/mix`).then((response) => {
+  useEffect(() => axios.get(`http://127.0.0.1:80/card/mix`).then((response) => {
     setItem(response.data);
     setFiltered(response.data);
     }) , [])
